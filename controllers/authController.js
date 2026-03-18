@@ -65,9 +65,6 @@ exports.login = async (req, res) => {
       { expiresIn: "1d" }
     );
 
-    res.cookie("token", token, {
-      httpOnly: true
-    });
 
     res.status(200).json({
       message: "Login successful",
@@ -87,7 +84,7 @@ exports.getProfile = async (req, res) => {
 
   try {
 
-    const dukan = await Dukan.findById(req.user.id).select("-password");
+    const dukan = await Dukan.find(req.user.id).select("-password");
 
     res.status(200).json({
       dukan
